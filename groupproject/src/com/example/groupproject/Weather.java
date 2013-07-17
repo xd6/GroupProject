@@ -166,7 +166,7 @@ public class Weather extends Activity {
 	    	else if(weather.equals("sky is clear")) {
 	    		imgView.setImageResource(R.drawable.sun);
 	    	}
-	    	else if(weather.equals("light rain") || weather.equals("moderate rain")) {
+	    	else if(weather.equals("light rain") || weather.equals("moderate rain") || weather.equals("heavy intensity rain")) {
 	    		imgView.setImageResource(R.drawable.rain);
 	    	}
 	    }

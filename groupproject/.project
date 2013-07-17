@@ -3,6 +3,7 @@
 	<name>groupproject</name>
 	<comment></comment>
 	<projects>
+		<project>google-play-services_lib2</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

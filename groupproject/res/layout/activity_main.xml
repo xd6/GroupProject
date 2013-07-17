@@ -14,13 +14,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Latitude (defaulting): 30.1764" />
+        android:text="Latitude (defaulting): 30.16" />
     
     <TextView
         android:id="@+id/longitude_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Longitude (defaulting): 85.8056"
+        android:text="Longitude (defaulting): -85.66"
         android:layout_below="@+id/latitude_text" />
     
     <TextView
