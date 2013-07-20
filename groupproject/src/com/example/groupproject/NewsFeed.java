@@ -100,7 +100,7 @@ public class NewsFeed extends Activity {
       StringBuilder code = new StringBuilder("<html><body>");
       for (Item item : entries)
       {
-        code.append(item.description + "</br>");
+        code.append(item.description );
       }
       code.append("</body></html>");
       
@@ -130,14 +130,9 @@ public class NewsFeed extends Activity {
       try{
         return loadXml(urls[0]);
       }
-      catch (IOException e )
+      catch (Exception e )
       {
-        return e.toString() + "\ndoInBG - IO";
-
-      }
-      catch ( XmlPullParserException e)
-      {
-        return e.toString() + "\ndoInBG";
+        return "Error loading content.";
 
       }
 
@@ -147,7 +142,7 @@ public class NewsFeed extends Activity {
     {
       setContentView(R.layout.activity_main);
       webkit = (WebView)findViewById(R.id.webkit);
-      webkit.loadData(URLEncoder.encode(code).replaceAll("\\+"," "),  "text/html", "UTF-8");
+      webkit.loadDataWithBaseURL(null, code, "text/html", "utf-8", null);
       
     }
 
