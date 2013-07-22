@@ -38,4 +38,11 @@
         android:layout_below="@+id/connection_status"
         android:onClick="weatherButtonClick" />
 
+        <Button
+        android:id="@+id/nf_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Local News"
+        android:layout_below="@+id/weather_button"
+        android:onClick="newsFeedClick" />
 </RelativeLayout>
