@@ -19,4 +19,5 @@ Bug with the Google API 17 and using the Maps APIv2 with Google Play Services:
 * Create an emulator using the Android 4.2.2 lib (not the Google API) and manually install the newest required packages via adb. (com.android.vending-20130716 and com.google.android.gms-20130716)
 * See: http://stackoverflow.com/questions/13691943/this-app-wont-run-unless-you-update-google-play-services-via-bazaar/13869332#13869332
 * (Does not affect actual devices, only emulators)
+* The build target for the project must also be Android API 17 and not Google API 17 (Project -> Properties -> Android)
   
