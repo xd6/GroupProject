@@ -24,7 +24,7 @@ import android.widget.ImageView;
 
 public class NewsFeed extends Activity {
 
- // WebView webkit;
+  private WebView webkit;
   List<Item> entries;
   URL url;
 
@@ -48,7 +48,6 @@ public class NewsFeed extends Activity {
    /* Intent intent = new Intent(this, SchoolView.class);
     startActivity(intent);
     */
-    
     new XmlParser().execute("https://news.google.com/news/feeds?pz=1&cf=all&ned=us&hl=en&geo=49426&output=rss");
   }
 
@@ -153,8 +152,8 @@ public class NewsFeed extends Activity {
 
     protected void onPostExecute(String code)
     {
-      setContentView(R.layout.activity_main);
-      WebView webkit = (WebView)findViewById(R.id.webkit);
+      setContentView(R.layout.newsfeed);
+      webkit = (WebView)findViewById(R.id.webkit);
       webkit.loadDataWithBaseURL(null, code, "text/html", "utf-8", null);
     }
 
