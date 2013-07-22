@@ -14,3 +14,9 @@ There is a bug with the Emulator that causes the location to not properly update
 * Go to 'Emulator Control'
 * Set a GPS coordinate and click 'Send'
 * Go to Google Maps.  If it prompts you to enable Location, do it.  This has been enough for me to start receiving location updates.  However, every time you send a new location with 'Emulator Control' in the DDMS view, you have to re-open Google Maps.
+
+Bug with the Google API 17 and using the Maps APIv2 with Google Play Services:
+ Create an emulator using the Android 4.2.2 lib (not the Google API) and manually install the newest required packages via adb. 
+ See: http://stackoverflow.com/questions/13691943/this-app-wont-run-unless-you-update-google-play-services-via-bazaar/13869332#13869332
+ (Does not affect actual devices, only emulators)
+  
