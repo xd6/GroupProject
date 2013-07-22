@@ -1,19 +1,22 @@
-package com.example.newsfeed;
+package com.example.groupproject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.example.groupproject.R;
+
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Xml;
 import android.view.Menu;
 import android.webkit.WebView;
@@ -21,7 +24,7 @@ import android.widget.ImageView;
 
 public class NewsFeed extends Activity {
 
-  WebView webkit;
+ // WebView webkit;
   List<Item> entries;
   URL url;
 
@@ -41,8 +44,11 @@ public class NewsFeed extends Activity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
-
+    
+   /* Intent intent = new Intent(this, SchoolView.class);
+    startActivity(intent);
+    */
+    
     new XmlParser().execute("https://news.google.com/news/feeds?pz=1&cf=all&ned=us&hl=en&geo=49426&output=rss");
   }
 
@@ -56,6 +62,8 @@ public class NewsFeed extends Activity {
 
 
   class XmlParser extends AsyncTask<String, Void, String>{
+    
+    
     public List<Item> parse(InputStream in) 
         throws XmlPullParserException, IOException
         {
@@ -100,7 +108,7 @@ public class NewsFeed extends Activity {
       StringBuilder code = new StringBuilder("<html><body>");
       for (Item item : entries)
       {
-        code.append(item.description );
+        code.append(item.description);
       }
       code.append("</body></html>");
       
@@ -130,9 +138,14 @@ public class NewsFeed extends Activity {
       try{
         return loadXml(urls[0]);
       }
-      catch (Exception e )
+      catch (IOException e )
       {
-        return "Error loading content.";
+        return e.toString() + "\ndoInBG - IO";
+
+      }
+      catch ( XmlPullParserException e)
+      {
+        return e.toString() + "\ndoInBG";
 
       }
 
@@ -141,9 +154,8 @@ public class NewsFeed extends Activity {
     protected void onPostExecute(String code)
     {
       setContentView(R.layout.activity_main);
-      webkit = (WebView)findViewById(R.id.webkit);
+      WebView webkit = (WebView)findViewById(R.id.webkit);
       webkit.loadDataWithBaseURL(null, code, "text/html", "utf-8", null);
-      
     }
 
     private InputStream downloadUrl(String urlString) 
