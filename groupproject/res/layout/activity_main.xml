@@ -29,13 +29,20 @@
         android:layout_height="wrap_content"
         android:text="NA"
         android:layout_below="@+id/longitude_text" />
+          <EditText 
+        android:id="@+id/searchText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/connection_status"
+        android:editable="true"
+        android:text="Panama City, FL"/>
     
     <Button
         android:id="@+id/weather_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Weather"
-        android:layout_below="@+id/connection_status"
+        android:layout_below="@+id/searchText"
         android:onClick="weatherButtonClick" />
 
         <Button
@@ -45,4 +52,11 @@
         android:text="Local News"
         android:layout_below="@+id/weather_button"
         android:onClick="newsFeedClick" />
+                <Button
+        android:id="@+id/sv_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Schools"
+        android:layout_below="@+id/nf_button"
+        android:onClick="schoolViewClick" />
 </RelativeLayout>
