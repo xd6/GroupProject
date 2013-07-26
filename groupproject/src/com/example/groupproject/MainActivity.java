@@ -21,7 +21,6 @@ com.google.android.gms.location.LocationListener {
 
   TextView latitude_text;
   TextView longitude_text;
-  TextView connection_status;
   public static TextView search;
   LocationClient location_client;
   boolean playSvcSuccess;
@@ -36,7 +35,6 @@ com.google.android.gms.location.LocationListener {
 
     latitude_text = (TextView)findViewById(R.id.latitude_text);
     longitude_text = (TextView)findViewById(R.id.longitude_text);
-    connection_status = (TextView)findViewById(R.id.connection_status);
 
     /* Check if google play services are available.  If they are available,
      * we use them to determine location.  If they are not available,
@@ -104,8 +102,6 @@ com.google.android.gms.location.LocationListener {
    * location every 10 seconds.
    */
   public void onConnected(Bundle connectionHint) {
-    connection_status.setText("Connection Status : Connected");
-
     LocationRequest location_request = LocationRequest.create();
     location_request.setInterval(10000);
     location_client.requestLocationUpdates(location_request, this);
@@ -114,13 +110,11 @@ com.google.android.gms.location.LocationListener {
   /* When the LocationClient has connected..
    */
   public void onDisconnected() {
-    connection_status.setText("Connection Status : Disconnected");
   }
 
   /* When the LocationClient failed to connect.
    */
   public void onConnectionFailed(ConnectionResult result) {
-    connection_status.setText("Connection Status : Fail");
   }
 
   /* When the location changes, update the latitude and longitude. */
