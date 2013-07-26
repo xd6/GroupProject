@@ -1,6 +1,5 @@
 package com.example.groupproject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -19,7 +18,6 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends Activity implements GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener,
@@ -28,7 +26,6 @@ com.google.android.gms.location.LocationListener {
   TextView latitude_text;
   TextView longitude_text;
   TextView connection_status;
-  public static TextView search;
   LocationClient location_client;
   boolean playSvcSuccess;
 
@@ -59,8 +56,7 @@ com.google.android.gms.location.LocationListener {
       Toast.makeText(this, "Google Play Service Error " + resp, Toast.LENGTH_LONG).show();
       playSvcSuccess=false;
     }
-    search = (TextView)findViewById(R.id.searchText);
-    search.setText(zipParser(latitude, longitude));
+    zipCode = zipParser(latitude, longitude);
 
   }
 
@@ -138,10 +134,13 @@ com.google.android.gms.location.LocationListener {
 
       latitude = location.getLatitude();
       longitude = location.getLongitude();
+      
+      //update zip code as well
+      zipCode = zipParser(latitude, longitude);
     }
   }
   
-  //lat/long to zip parsing, or vice versa. 
+  //lat/long to zip parsing
   private String zipParser(double lat, double lng)
   {
     Geocoder geocoder = new Geocoder(this);
