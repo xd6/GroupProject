@@ -1,7 +1,12 @@
 package com.example.groupproject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +19,7 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends Activity implements GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener,
@@ -29,6 +35,7 @@ com.google.android.gms.location.LocationListener {
   /* Default to panama city, FL */
   public static double longitude = -85.66;
   public static double latitude = 30.16;
+  public static String zipCode = "";
 
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -52,8 +59,8 @@ com.google.android.gms.location.LocationListener {
       Toast.makeText(this, "Google Play Service Error " + resp, Toast.LENGTH_LONG).show();
       playSvcSuccess=false;
     }
-
     search = (TextView)findViewById(R.id.searchText);
+    search.setText(zipParser(latitude, longitude));
 
   }
 
@@ -132,5 +139,22 @@ com.google.android.gms.location.LocationListener {
       latitude = location.getLatitude();
       longitude = location.getLongitude();
     }
+  }
+  
+  //lat/long to zip parsing, or vice versa. 
+  private String zipParser(double lat, double lng)
+  {
+    Geocoder geocoder = new Geocoder(this);
+    String zip = "";
+    try{
+       List<Address> addrs = geocoder.getFromLocation(lat, lng, 1);
+       zip = addrs.get(0).getPostalCode();
+    }
+    catch (Exception e)
+    {
+      Toast.makeText(this,  e.getLocalizedMessage(), 
+          Toast.LENGTH_LONG).show();
+    }
+    return zip;
   }
 }
