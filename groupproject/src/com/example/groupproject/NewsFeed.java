@@ -16,7 +16,6 @@ import com.example.groupproject.R;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
 import android.util.Xml;
 import android.view.Menu;
 import android.webkit.WebView;
@@ -25,6 +24,7 @@ import android.widget.ImageView;
 public class NewsFeed extends Activity {
 
   private WebView webkit;
+  private String zipCode;
   List<Item> entries;
   URL url;
 
@@ -35,7 +35,6 @@ public class NewsFeed extends Activity {
 
     Item(String description){
       this.description = description;
-      
     }
   }
 
@@ -45,10 +44,10 @@ public class NewsFeed extends Activity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     
-   /* Intent intent = new Intent(this, SchoolView.class);
-    startActivity(intent);
-    */
-    new XmlParser().execute("https://news.google.com/news/feeds?pz=1&cf=all&ned=us&hl=en&geo=49426&output=rss");
+    zipCode = MainActivity.zipCode;
+    new XmlParser().execute(
+        "https://news.google.com/news/feeds?pz=1&cf=all&ned=us&hl=en" +
+        "&geo=" + zipCode + "&output=rss");
   }
 
   @Override

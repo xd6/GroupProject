@@ -27,7 +27,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.Activity;
 import android.graphics.BitmapFactory;
-import android.location.Address;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -36,21 +35,20 @@ import android.widget.Toast;
 public class SchoolView extends Activity{
 
   static TextView text;
-  TextView search;
   GoogleMap map;
-  List<POI>markers;
   String searchText="";
   
-  //this is my Google API key (for browser apps)
+  //this is my Google API key (for Places API)
   private final String key = "AIzaSyCM_9XOwDOglYF0-p86M8mlZhLeg2gVBfk";
   
   //radius within which to search
-  protected static int radius = 2500;
+  protected static int radius = 12500;
   
   protected static String 
   placesSearchString="", 
   searchType ="", 
   JSONstring="";
+  
 
   
   @Override
@@ -58,27 +56,25 @@ public class SchoolView extends Activity{
   {
 
     super.onCreate(bundle);
-
-
-    setContentView(R.layout.schoolview);
-
-
     LatLng latlng = new LatLng(MainActivity.latitude, MainActivity.longitude);
 
-    text = (TextView)findViewById(R.id.mapText);
-
     //Search string
-    search = MainActivity.search;
-    searchText = search.getText().toString();
     searchType = "school";
 
     //for Places API, return JSON string with info needed
     placesSearchString = "" +
-        "https://maps.googleapis.com/maps/api/place/nearbysearch/" 
+        "https://maps.googleapis.com/maps/api/place/textsearch/" 
         +"json?location="
         +latlng.latitude +","+ latlng.longitude
-        +"&radius=" + radius + "&sensor=true" +"&types=" + searchType
+        +"&radius=" + radius 
+        +"&sensor=true" 
+        +"&query=school"
+        +"&types=" + searchType
         +"&key=" + key;
+    
+    setContentView(R.layout.schoolview);
+
+    text = (TextView)findViewById(R.id.mapText);
 
      map = ((MapFragment)
         getFragmentManager().findFragmentById(R.id.map))
@@ -88,9 +84,7 @@ public class SchoolView extends Activity{
     map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 11));
     
     new PlacesSearch().execute(placesSearchString);
-
   }
-
 
 
   //JSON parsing class for Places API
@@ -119,11 +113,13 @@ public class SchoolView extends Activity{
           {
             JSONObject o = jArray.getJSONObject(i);
             JSONObject geom = o.getJSONObject("geometry");
+            //location is within the geometry element
             JSONObject location = geom.getJSONObject("location");
 
+            icon = o.getString("formatted_address");
             lat  = location.getString("lat");
             lng  = location.getString("lng");
-            icon = o.getString("icon");
+            
             name = o.getString("name");
 
             //add the new POI to the list
@@ -132,7 +128,7 @@ public class SchoolView extends Activity{
         }
         catch(JSONException e)
         {
-          markers.add(new POI("30", "-85", icon, "Error parsing"));
+          markers.add(new POI("0", "0", e.getLocalizedMessage(), icon));
         }
       
       return markers;
@@ -146,15 +142,23 @@ public class SchoolView extends Activity{
      for (int i = 0; i < markerList.size(); i++)
       {
 
+       POI poi = markerList.get(i);
       mark = map.addMarker(new MarkerOptions()
-      .position(new LatLng(Double.valueOf(markerList.get(i).lat),
-                           Double.valueOf(markerList.get(i).lng)))
-                  .title(markerList.get(i).name));
+      .position(new LatLng(Double.valueOf(poi.lat),
+                           Double.valueOf(poi.lng)))
+                  .title(poi.name)
+                  .snippet(poi.icon));
+      if (i < 1){
+        map.animateCamera(CameraUpdateFactory
+            .newLatLngZoom(new LatLng(Double.parseDouble(poi.lat), 
+                                      Double.parseDouble(poi.lng)),
+             10));
+      }
       
       try{
         bmp = BitmapDescriptorFactory.fromBitmap(
             BitmapFactory.decodeStream(
-                downloadUrl(markers.get(i).icon)));
+                downloadUrl(poi.icon)));
       }
       catch (Exception e)
       {
@@ -165,7 +169,7 @@ public class SchoolView extends Activity{
       
        }
      
-     
+
       
     }
 
