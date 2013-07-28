@@ -15,10 +15,8 @@ There is a bug with the Emulator that causes the location to not properly update
 * Set a GPS coordinate and click 'Send'
 * Go to Google Maps.  If it prompts you to enable Location, do it.  This has been enough for me to start receiving location updates.  However, every time you send a new location with 'Emulator Control' in the DDMS view, you have to re-open Google Maps.
 
-Bug with the Google API 17 and using the Maps APIv2 with Google Play Services:
+When trying to use the 'Schools' feature, there is a bug with the Google API 17 and using the Maps APIv2 with Google Play Services.  To use the Schools feature, the following steps need to be performed.  Note that if using the Android API, not the Google API, Location and Geocoder will probably not work in the emulator.
 * Create an emulator using the Android API 16 (4.2.1) lib  (not the Google API) and manually install the newest required packages via adb. (com.android.vending-20130716 and com.google.android.gms-20130716)
 * See: http://stackoverflow.com/questions/13691943/this-app-wont-run-unless-you-update-google-play-services-via-bazaar/13869332#13869332
 * (Does not affect actual devices, only emulators)
 * The build target for the project must also be Android API 16 (4.2.1) and not Google API 17(4.2.2) (Project -> Properties -> Android)
-  
-*Another issue is that this emulator does not have Geocoding, which is what the class relies on to gather points of interest nearby. It does work on actual devices however. 

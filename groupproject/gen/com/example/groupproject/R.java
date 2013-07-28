@@ -201,7 +201,6 @@ containing a value of this type.
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int satellite=0x7f050002;
-        public static final int searchText=0x7f050007;
         public static final int sv_button=0x7f05000a;
         public static final int terrain=0x7f050003;
         public static final int weather_1_image=0x7f05000f;
@@ -216,6 +215,7 @@ containing a value of this type.
         public static final int weather_5_text=0x7f05001c;
         public static final int weather_button=0x7f050008;
         public static final int webkit=0x7f05000b;
+        public static final int zip_text=0x7f050007;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

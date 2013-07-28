@@ -25,6 +25,7 @@ com.google.android.gms.location.LocationListener {
 
   TextView latitude_text;
   TextView longitude_text;
+  TextView zip_text;
   public static TextView search;
   TextView connection_status;
   LocationClient location_client;
@@ -33,7 +34,7 @@ com.google.android.gms.location.LocationListener {
   /* Default to panama city, FL */
   public static double longitude = -85.66;
   public static double latitude = 30.16;
-  public static String zipCode = "";
+  public static String zipCode = "32401";
 
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -41,6 +42,7 @@ com.google.android.gms.location.LocationListener {
 
     latitude_text = (TextView)findViewById(R.id.latitude_text);
     longitude_text = (TextView)findViewById(R.id.longitude_text);
+    zip_text = (TextView)findViewById(R.id.zip_text);
 
     /* Check if google play services are available.  If they are available,
      * we use them to determine location.  If they are not available,
@@ -56,8 +58,6 @@ com.google.android.gms.location.LocationListener {
       Toast.makeText(this, "Google Play Service Error " + resp, Toast.LENGTH_LONG).show();
       playSvcSuccess=false;
     }
-    zipCode = zipParser(latitude, longitude);
-
   }
 
   @Override
@@ -133,6 +133,7 @@ com.google.android.gms.location.LocationListener {
       
       //update zip code as well
       zipCode = zipParser(latitude, longitude);
+      zip_text.setText("Zip (received): " + zipCode);
     }
   }
   

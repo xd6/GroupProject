@@ -1,12 +1,16 @@
-*I figure when we submit this project we should have a description of what the project is, and what it does.  This can be based on our initial design goals, but I thought I'd get it started.
-In our Design Plan, we wanted to get Location, RSS parsing, Front Page Layout, News, Weather, and Schools working.  We got all of those things working, and a description of each is below.  We worked on this in Github, and our main Github repository contains a number of important details for running our application in the emulator (https://github.com/SaintNicholas/GroupProject).
+In our Design Plan, we wanted to get Location, RSS parsing, Front Page Layout, News, Weather, and Schools working.  We got all of those things working, and a description of each is below.  We worked on this in Github, and our main Github repository contains a number of important details for running our application in the emulator (https://github.com/SaintNicholas/GroupProject), such as which APIs are necessary for which features, how to set up the AVDs, etc.
+
 Location
-*Our application determines location based on Google Play's location APIs (https://developer.android.com/google/play-services/location.html).  These APIs provide a fused location, based on the underlying technology of the phone, including GPS and cellular based location, and makes it easier for the developer to use.  The location is given in latitude and longitude, which is then used by the rest of the application as the location.
+Our application determines location based on Google Play's location APIs (https://developer.android.com/google/play-services/location.html).  These APIs provide a fused location, based on the underlying technology of the phone, including GPS and cellular based location, and makes it easier for the developer to use.  The location is given in latitude and longitude.  Using the latitude a longitude, we also use a Geocoder to turn that latitude and longitude into a zip code.  The latitude and longitude and zip code are then used by the rest of the application as the location.
+
 Front Page Layout
-*On the front page, the first thing displayed is the latitude and longitude of the current location.  Then there are buttons for a weather activity, a local news activity, and a schools activity.
+On the front page, the first thing displayed is the latitude and longitude and zip code of the current location.  Then there are buttons for a weather activity, a local news activity, and a schools activity.
+
 Weather Activity
-*The weather activity uses the openweathermap.org API, and the latitude and longitude, to get an XML representation of the 5 day forecast.  This forecast is parsed, and a picture of the weather, the high temperature, and the low temperature is given for each of the current day and the next 4 days.  This is an easy visual indication of the weather for the next few days, which was the goal.
+The weather activity uses the openweathermap.org API, and the latitude and longitude, to get an XML representation of the 5 day forecast.  This forecast is parsed, and a picture indicating the weather, the high temperature, and the low temperature is given for each of the current day and the next 4 days.  This is an easy visual indication of the weather for the next few days, which was the goal.
+
 Local News Activity
 *Xavier to complete
+
 Schools Activity
 *Xavier to complete.
