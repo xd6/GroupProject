@@ -10,7 +10,7 @@ Weather Activity
 The weather activity uses the openweathermap.org API, and the latitude and longitude, to get an XML representation of the 5 day forecast.  This forecast is parsed, and a picture indicating the weather, the high temperature, and the low temperature is given for each of the current day and the next 4 days.  This is an easy visual indication of the weather for the next few days, which was the goal.
 
 Local News Activity
-*Xavier to complete
+This one is simple, I am parsing the Google News RSS feed (https://news.google.com/news/feeds?pz=1&cf=all&ned=us&hl=en&geo=zipCode&output=rss) - taking the description element since it is full of already well-writen HTML code - and loading it as HTML. This, however, depends on the GeoCoder to parse a zip code from the GPS coordinates from Location. 
 
 Schools Activity
-*Xavier to complete.
+I have first created a Google Map, then I use the Google Places API to locate nearby schools. Google returns results as JSON and I parse the JSON objects to find the lat, long, title, and address of each returned result. Then I add a marker for each result to the map, and set it so when you click on the information that pops up above each marker it launches a browser which searches Google for the title of the point plus its zip code to narrow it down further. 
