@@ -55,10 +55,10 @@
             android:label="School View"
             />
        
-        <!--  THIS IS THE DEBUG KEY -->
+        <!--  THIS IS THE DEBUG KEY 
        <meta-data 
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBz77AUTzhc51luoX0ALZK9nW25lGpuWlg"/>
+            android:value="AIzaSyBz77AUTzhc51luoX0ALZK9nW25lGpuWlg"/> -->
        
        <!--  THIS IS THE GPk KEYSTORE FOR PUBLIC RELEASE -->
         <meta-data 
