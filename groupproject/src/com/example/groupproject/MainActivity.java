@@ -25,6 +25,8 @@ com.google.android.gms.location.LocationListener {
 
   TextView latitude_text;
   TextView longitude_text;
+  TextView zip_text;
+  public static TextView search;
   TextView connection_status;
   LocationClient location_client;
   boolean playSvcSuccess;
@@ -32,7 +34,7 @@ com.google.android.gms.location.LocationListener {
   /* Default to panama city, FL */
   public static double longitude = -85.66;
   public static double latitude = 30.16;
-  public static String zipCode = "";
+  public static String zipCode = "32401";
 
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -40,12 +42,12 @@ com.google.android.gms.location.LocationListener {
 
     latitude_text = (TextView)findViewById(R.id.latitude_text);
     longitude_text = (TextView)findViewById(R.id.longitude_text);
-    connection_status = (TextView)findViewById(R.id.connection_status);
+    zip_text = (TextView)findViewById(R.id.zip_text);
 
-    /* Check if google play services are available.  If they are available,
-     * we use them to determine location.  If they are not available,
-     * then we have to use the default location.
-     */
+    /* Check if google play services are available. If they are available,
+* we use them to determine location. If they are not available,
+* then we have to use the default location.
+*/
     int resp = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
     if(resp == ConnectionResult.SUCCESS) {
       location_client = new LocationClient(this, this, this);
@@ -56,8 +58,6 @@ com.google.android.gms.location.LocationListener {
       Toast.makeText(this, "Google Play Service Error " + resp, Toast.LENGTH_LONG).show();
       playSvcSuccess=false;
     }
-    zipCode = zipParser(latitude, longitude);
-
   }
 
   @Override
@@ -78,24 +78,27 @@ com.google.android.gms.location.LocationListener {
   public void newsFeedClick(View v)
   {
     Intent intent = new Intent(this, NewsFeed.class);
+    intent.putExtra("zipCode", zipCode);
+    
     startActivity(intent);
-  }  
+  }
   public void schoolViewClick(View v)
   {
     if (playSvcSuccess)
     {
       Intent intent = new Intent(this, SchoolView.class);
+      intent.putExtra("zipCode",  com.example.groupproject.MainActivity.zipCode);
       startActivity(intent);
     }
     else
-      Toast.makeText(this, "Google Play Service Error - Cannot load. ", Toast.LENGTH_LONG).show();
+      Toast.makeText(this, "Google Play Service Error - Cannot load nearby schools. ", Toast.LENGTH_LONG).show();
   }
 
   /********************************** Location **********************************/
 
   /* When the activity is destroyed, disconnect the location client
-   * because there is no point to running it
-   */
+* because there is no point to running it
+*/
   protected void onDestroy() {
     super.onDestroy();
     if(location_client != null) {
@@ -104,26 +107,22 @@ com.google.android.gms.location.LocationListener {
   }
 
   /* When the LocationClient has connected, set it to request an updated
-   * location every 10 seconds.
-   */
+* location every 10 seconds.
+*/
   public void onConnected(Bundle connectionHint) {
-    connection_status.setText("Connection Status : Connected");
-
     LocationRequest location_request = LocationRequest.create();
     location_request.setInterval(10000);
     location_client.requestLocationUpdates(location_request, this);
   }
 
   /* When the LocationClient has connected..
-   */
+*/
   public void onDisconnected() {
-    connection_status.setText("Connection Status : Disconnected");
   }
 
   /* When the LocationClient failed to connect.
-   */
+*/
   public void onConnectionFailed(ConnectionResult result) {
-    connection_status.setText("Connection Status : Fail");
   }
 
   /* When the location changes, update the latitude and longitude. */
@@ -137,6 +136,7 @@ com.google.android.gms.location.LocationListener {
       
       //update zip code as well
       zipCode = zipParser(latitude, longitude);
+      zip_text.setText("Zip (received): " + zipCode);
     }
   }
   
@@ -151,7 +151,7 @@ com.google.android.gms.location.LocationListener {
     }
     catch (Exception e)
     {
-      Toast.makeText(this,  e.getLocalizedMessage(), 
+      Toast.makeText(this, e.getLocalizedMessage(),
           Toast.LENGTH_LONG).show();
     }
     return zip;
